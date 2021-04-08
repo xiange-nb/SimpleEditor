@@ -4,6 +4,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileReader;
 import cn.hutool.core.io.file.FileWriter;
 import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import javafx.animation.ScaleTransition;
@@ -12,13 +13,21 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.CacheHint;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import sample.common.PublicConfigure;
@@ -27,6 +36,8 @@ import sample.entity.ship.ShipJson;
 import sample.javaFXUI.NodePane;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @program: SimpleEditor
@@ -70,6 +81,7 @@ public class NewShipFileController {
     private TextArea testAreatest;
 
     ObservableList<comboBoxEnt> options= FXCollections.observableArrayList();
+    List<NodePane> weapons=new ArrayList<>();
     public void initialize() {
         comboBox.setConverter(new StringConverter<comboBoxEnt>() {
             @Override
@@ -129,6 +141,8 @@ public class NewShipFileController {
             coreImage.setFitHeight(100);
             coreImage.setFitWidth(100);
 
+
+
             TranslateTransition translateTransition = new TranslateTransition(Duration.millis(1), pane);
             translateTransition.setToX(0);
             translateTransition.setToY(0);
@@ -141,16 +155,16 @@ public class NewShipFileController {
                 // 缩放后设置回QUALITY模式 显示清晰
                 pane.setCacheHint(CacheHint.QUALITY);
             });
+
             pane.setOnMouseMoved(event -> {
-
-                double v = (imageView.getFitWidth() - w) / 2;
-                double v1 = (imageView.getFitHeight() - h) / 2;
-
+                double vw = (imageView.getFitWidth() - w) / 2;
+                double vh = (imageView.getFitHeight() - h) / 2;
                 double layoutX = coreImage.getLayoutX() + (coreImage.getFitWidth() / 2);
-
                 double layoutY = coreImage.getLayoutY() + (coreImage.getFitHeight() / 2);
-                lable1.setText(NumberUtil.roundStr(layoutY - event.getY() - v1, 1) + "--" +
-                        NumberUtil.roundStr(layoutX - event.getX() - v, 1));
+
+                lable1.setText(RelativeCoordinates_plus(layoutY , event.getY() , vh) + "--" +
+                        RelativeCoordinates_plus(layoutX , event.getX() , vw)+"\n"
+                +event.getY()+"--"+event.getX());
             });
             pane.setOnScroll(event -> {
                 double toX = scaleTransition.getToX();
@@ -166,19 +180,35 @@ public class NewShipFileController {
                     scaleTransition.setToY(toY);
                     scaleTransition.play();
             });
-            NodePane nodePane=new NodePane();
-            pane.setOnMouseClicked(event -> {
 
-//                Pane pane1=new Pane();
-//                pane1.setLayoutX(event.getX());
-//                pane1.setLayoutY(event.getY());
-//                pane1.setMaxWidth(200);
-//                pane1.setMaxHeight(200);
-//                pane1.setMinSize(200,200);
-//                pane1.setStyle("-fx-background-color: crimson");
-//                pane.getChildren().addAll(nodePane.NewNodePane(event.getX(),event.getY()),
-//                        nodePane.getLine1(),nodePane.getLine2());
+            supPane.setOnKeyPressed(eventKEY -> {
+                if (eventKEY.getCode()== KeyCode.CONTROL){
+                    pane.setOnMouseClicked(event -> {
+                        double vw = (imageView.getFitWidth() - w) / 2;
+                        double vh = (imageView.getFitHeight() - h) / 2;
+                        double layoutX = coreImage.getLayoutX() + (coreImage.getFitWidth() / 2);
+                        double layoutY = coreImage.getLayoutY() + (coreImage.getFitHeight() / 2);
+                        NodePane nodePane=new NodePane(event.getX(),event.getY());
+                        nodePane.setRX(RelativeCoordinates_plus(layoutX , event.getX() , vw));
+                        nodePane.setRY(RelativeCoordinates_plus(layoutY , event.getY() , vh));
+                        nodePane.setCode(weapons.size());
+                        weapons.add(nodePane);
+                        pane.getChildren().addAll(nodePane);
+                        Connection(nodePane);
+                        draggable(nodePane);
+                    });
+                }
             });
+
+            supPane.setOnKeyReleased(eventKEY -> {
+                if (eventKEY.getCode()== KeyCode.CONTROL){
+                       pane.setOnMouseClicked(event -> {
+
+                       });
+                }
+            });
+
+
             ButRight.setOnAction(event -> {
                 double toX = translateTransition.getToX();
                 translateTransition.setToX(toX += 5);
@@ -210,7 +240,33 @@ public class NewShipFileController {
         }
 
     }
+    private void draggable(Node node) {
+        final Position pos = new Position();
+        // 提示用户该结点可点击
+        node.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> node.setCursor(Cursor.HAND));
+        node.addEventHandler(MouseEvent.MOUSE_EXITED, event -> node.setCursor(Cursor.DEFAULT));
+        // 提示用户该结点可拖拽
+        node.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+            node.setCursor(Cursor.MOVE);
+            pos.x = event.getX();
+            pos.y = event.getY();
+        });
+        node.addEventHandler(MouseEvent.MOUSE_RELEASED, event -> node.setCursor(Cursor.DEFAULT));
+        // 实现拖拽功能
+        node.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
+            double distanceX = event.getX() - pos.x;
+            double distanceY = event.getY() - pos.y;
+            double x = node.getLayoutX() + distanceX;
+            double y = node.getLayoutY() + distanceY;
+            // 计算出 x、y 后将结点重定位到指定坐标点 (x, y)
+            node.relocate(x, y);
+        });
+    }
 
+    private static class Position {
+        double x;
+        double y;
+    }
     public void saveShipFile() {
         ShipJson shipJson = JSONObject.parseObject(textArea.getText(), ShipJson.class);
         File shipfile = FileUtil.file(PublicConfigure.getShipFile() + supPane.getId() + ".ship");
@@ -223,7 +279,48 @@ public class NewShipFileController {
         prog.setProgress(0.0);
     }
 
+    public double RelativeCoordinates_plus(double layout,double event,double v){
+        return NumberUtil.round(layout - event - v,1).doubleValue();
+    }
 
+    public double RelativeCoordinates_minus(double layout,double event,double v ){
+        double v1=0;
+        if (event>0){
+             v1 = layout - event;
+        }
+        if (event<0){
+             v1 = layout +Math.abs(event);
+        }
+        return NumberUtil.round(v1,1).doubleValue();
+    }
+
+    public void Connection(NodePane nodePane){
+        pane.getChildren().removeIf(node -> StrUtil.equals(node.getTypeSelector(),"Line"));
+        int code = nodePane.getCode();
+        if (code>0){
+          for (NodePane np:weapons){
+              if (np.getCode()<weapons.size()-1){
+                  pane.getChildren().addAll(TheConnection(np,weapons.get(np.getCode()+1)));
+              }else {
+                  pane.getChildren().add(TheConnection(np,weapons.get(0)));
+              }
+          }
+        }
+    }
+
+    public Line TheConnection(Pane node1, Pane node2){
+        Line line = new Line();
+
+        // 将直线的起点坐标与 node1 的中心坐标进行绑定
+        line.startXProperty().bind(node1.layoutXProperty().add(node1.widthProperty().divide(2)));
+        line.startYProperty().bind(node1.layoutYProperty().add(node1.heightProperty().divide(2)));
+
+        // 将直线的终点坐标与 node2 的中心坐标进行绑定
+        line.endXProperty().bind(node2.layoutXProperty().add(node2.widthProperty().divide(2)));
+        line.endYProperty().bind(node2.layoutYProperty().add(node2.heightProperty().divide(2)));
+        line.setStroke(Paint.valueOf("#f8ffe1"));
+        return line;
+    }
 
 
     class comboBoxEnt{

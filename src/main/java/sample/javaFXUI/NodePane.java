@@ -1,11 +1,8 @@
 package sample.javaFXUI;
 
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-
-import java.util.HashMap;
-import java.util.LinkedList;
 
 /**
  * @program: SimpleEditor
@@ -15,25 +12,84 @@ import java.util.LinkedList;
  **/
 public class NodePane extends Pane {
 
+        private int code;
+        private double RX;
+        private double RY;
+        private double AX;
+        private double AY;
+        private Line line1;
+        private int size=20;
 
-        private transient int code;
-        private double X;
-        private double Y;
-        private static Line line1;
-        private static Line line2;
+    public NodePane() {
+    }
 
+    public NodePane(double aX, double aY) {
+        AX=aX;AY=aY;
+        this.setLayoutX(AX-(size/2));
+        this.setLayoutY(AY-(size/2));
+        //this.setStyle("-fx-background-color: crimson");
+        //this.setMinSize(size,size);
+        Circle circle = new Circle(10);
+        circle.setStyle("-fx-fill: rgb(51,184,223)");
+        circle.setCenterX(size/2);
+        circle.setCenterY(size/2);
+        circle.setOpacity(0.8);
+        this.getChildren().addAll(circle);
+    }
 
-        public static Line TheConnection(Pane node1, Pane node2){
-            Line line = new Line();
+    public int getCode() {
+        return code;
+    }
 
-            // 将直线的起点坐标与 node1 的中心坐标进行绑定
-            line.startXProperty().bind(node1.layoutXProperty().add(node1.widthProperty().divide(2)));
-            line.startYProperty().bind(node1.layoutYProperty().add(node1.heightProperty().divide(2)));
+    public void setCode(int code) {
+        this.code = code;
+    }
 
-            // 将直线的终点坐标与 node2 的中心坐标进行绑定
-            line.endXProperty().bind(node2.layoutXProperty().add(node2.widthProperty().divide(2)));
-            line.endYProperty().bind(node2.layoutYProperty().add(node2.heightProperty().divide(2)));
-            return line;
-        }
+    public double getRX() {
+        return RX;
+    }
 
+    public void setRX(double RX) {
+        this.RX = RX;
+    }
+
+    public double getRY() {
+        return RY;
+    }
+
+    public void setRY(double RY) {
+        this.RY = RY;
+    }
+
+    public double getAX() {
+        return AX;
+    }
+
+    public void setAX(double AX) {
+        this.AX = AX;
+    }
+
+    public double getAY() {
+        return AY;
+    }
+
+    public void setAY(double AY) {
+        this.AY = AY;
+    }
+
+    public Line getLine1() {
+        return line1;
+    }
+
+    public void setLine1(Line line1) {
+        this.line1 = line1;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 }
