@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="supPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.NewShipFileController">
+   <children>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="图形化编辑">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <Pane fx:id="pane" layoutX="200.0" layoutY="-7.0" style="-fx-background-color: #82858e;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" />
+                              <ImageView fx:id="coreImage" fitHeight="76.0" fitWidth="84.0" layoutX="167.0" layoutY="304.0" pickOnBounds="true" preserveRatio="true" />
+                           </children></Pane>
+                        <Label fx:id="lable1" layoutX="50.0" layoutY="425.0" text="111" />
+                        <Label fx:id="lable2" layoutX="50.0" layoutY="440.0" text="222" />
+                        <Label fx:id="lable3" layoutX="50.0" layoutY="455.0" text="333" />
+                        <BorderPane layoutX="986.0" layoutY="563.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <top>
+                              <Button fx:id="ButTop" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0" text="上" BorderPane.alignment="CENTER" />
+                           </top>
+                           <left>
+                              <Button fx:id="ButLeft" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0" text="左" BorderPane.alignment="CENTER" />
+                           </left>
+                           <center>
+                              <Button fx:id="ButCenter" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0" text="复位" BorderPane.alignment="CENTER" />
+                           </center>
+                           <right>
+                              <Button fx:id="ButRight" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0" text="右" BorderPane.alignment="CENTER" />
+                           </right>
+                           <bottom>
+                              <Button fx:id="ButBottom" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0" text="下" BorderPane.alignment="CENTER" />
+                           </bottom>
+                        </BorderPane>
+                        <BorderPane layoutX="986.0" layoutY="216.0" prefHeight="200.0" prefWidth="200.0" />
+                        <CheckBox layoutX="22.0" layoutY="75.0" mnemonicParsing="false" text="中心点" />
+                        <CheckBox layoutX="22.0" layoutY="103.0" mnemonicParsing="false" text="碰撞边界" />
+                        <ComboBox fx:id="comboBox" layoutX="22.0" layoutY="28.0" prefWidth="150.0" />
+                        <Label layoutX="46.0" layoutY="2.0" text="选择编辑项" textFill="#e51010">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="json文件编辑">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <CheckBox layoutX="6.0" layoutY="14.0" mnemonicParsing="false" text="添加内置武器" />
+                        <CheckBox layoutX="6.0" layoutY="46.0" mnemonicParsing="false" text="添加内置插槽" />
+                        <TextArea fx:id="textArea" layoutX="125.0" layoutY="14.0" onMouseClicked="#textAreaCliked" prefHeight="771.0" prefWidth="1075.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextArea>
+                        <Button layoutX="9.0" layoutY="79.0" mnemonicParsing="false" onAction="#saveShipFile" prefHeight="23.0" prefWidth="88.0" text="保存" />
+                        <ProgressIndicator fx:id="prog" layoutX="41.0" layoutY="122.0" progress="0.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

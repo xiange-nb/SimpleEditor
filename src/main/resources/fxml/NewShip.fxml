@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.NewShipController">
+   <children>
+      <Button layoutX="138.0" layoutY="353.0" mnemonicParsing="false" onAction="#Button1Action" text="确定" />
+      <Button fx:id="button2" layoutX="388.0" layoutY="353.0" mnemonicParsing="false" onAction="#button2Action" text="取消" />
+      <TextField fx:id="textField1" layoutX="112.0" layoutY="77.0" prefHeight="23.0" prefWidth="353.0" promptText="名称(必填)" />
+      <Text layoutX="65.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="船名称" />
+      <Text layoutX="71.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="船ID" />
+      <TextField fx:id="textField2" layoutX="112.0" layoutY="118.0" prefHeight="23.0" prefWidth="353.0" promptText="ID(必填)" />
+      <TextField fx:id="textField3" layoutX="112.0" layoutY="159.0" prefHeight="23.0" prefWidth="230.0" promptText="级别分类" />
+      <Text layoutX="71.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="级别" />
+      <ComboBox fx:id="comboBox" layoutX="343.0" layoutY="159.0" onAction="#comboBoxAction" prefHeight="23.0" prefWidth="122.0" promptText="选择级别" />
+   </children>
+</AnchorPane>

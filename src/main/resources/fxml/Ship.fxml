@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="superPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.EditShipController">
+   <children>
+      <BorderPane layoutX="120.0" layoutY="63.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <AnchorPane prefHeight="775.0" prefWidth="319.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="tabview" layoutY="27.0" prefHeight="773.0" prefWidth="321.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
+                    <columns>
+                      <TableColumn id="name" fx:id="name" prefWidth="115.0" text="名称" />
+                      <TableColumn id="designation" fx:id="designation" prefWidth="100.0" text="级别" />
+                        <TableColumn id="swp_ray_drone" fx:id="id" prefWidth="101.0" text="id" />
+                    </columns>
+                  </TableView>
+                  <TextField fx:id="textField" layoutY="3.0" prefHeight="23.0" prefWidth="313.0" promptText="按名称搜索" AnchorPane.bottomAnchor="749.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </left>
+         <center>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+              <tabs>
+                <Tab text="船文件">
+                     <content>
+                        <FlowPane fx:id="flowPane" hgap="50.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" vgap="50.0">
+                           <children>
+                              <AnchorPane fx:id="pane1" prefHeight="227.0" prefWidth="122.0" style="-fx-border-color: lightskyblue;">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="15.0" prefWidth="120.0" text="船贴图" />
+                                    <VBox alignment="CENTER" layoutX="2.0" layoutY="16.0" prefHeight="163.0" prefWidth="122.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="15.0">
+                                       <children>
+                                          <ImageView fx:id="shipImage" fitHeight="160.0" fitWidth="120.0" layoutY="14.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </VBox>
+                                    <Label fx:id="shipLabel" alignment="CENTER" layoutY="176.0" prefHeight="20.0" prefWidth="120.0" wrapText="true" />
+                                    <Button layoutX="1.0" layoutY="202.0" mnemonicParsing="false" onAction="#uploadImage" prefHeight="23.0" prefWidth="60.0" text="上传" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                                    <Button layoutX="62.0" layoutY="202.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="62.0" text="删除" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="pane2" prefHeight="160.0" prefWidth="120.0" style="-fx-border-color: lightskyblue;">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="15.0" prefWidth="120.0" text="舰体配置" />
+                                    <ImageView fx:id="shipJsonImage" fitHeight="120.0" fitWidth="120.0" layoutX="3.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" />
+                                    <Label fx:id="shipFileLabel" alignment="CENTER" layoutY="176.0" prefHeight="20.0" prefWidth="120.0" wrapText="true">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </Label>
+                                    <Button layoutX="84.0" layoutY="202.0" mnemonicParsing="false" onAction="#editShipFile" text="编辑" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" />
+                                    <MenuButton layoutX="3.0" layoutY="211.0" mnemonicParsing="false" text="新建/上传" AnchorPane.leftAnchor="0.0">
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#newShipFile" text="新建" />
+                                        <MenuItem mnemonicParsing="false" onAction="#uploadShipFile" text="上传" />
+                                      </items>
+                                    </MenuButton>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="pane3" prefHeight="160.0" prefWidth="120.0" style="-fx-border-color: lightskyblue;">
+                                 <children>
+                                    <Label alignment="CENTER" layoutX="2.0" prefHeight="15.0" prefWidth="120.0" text="数值配置" />
+                                    <ImageView fx:id="csvFileImage" fitHeight="120.0" fitWidth="120.0" layoutX="2.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Label fx:id="csvFileLabel" alignment="CENTER" layoutX="2.0" layoutY="176.0" prefHeight="20.0" prefWidth="120.0" wrapText="true" />
+                                    <Button layoutX="2.0" layoutY="202.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="61.0" text="编辑" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                                    <Button layoutX="62.0" layoutY="202.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="61.0" text="删除" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                           <padding>
+                              <Insets left="30.0" top="30.0" />
+                           </padding>
+                        </FlowPane>
+                     </content>
+                  </Tab>
+                <Tab text="数值设定文件" />
+              </tabs>
+            </TabPane>
+         </center>
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="新建">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#Menu1" text="新建船" />
+                     </items></Menu>
+                <Menu mnemonicParsing="false" text="删除" />
+              </menus>
+            </MenuBar>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>

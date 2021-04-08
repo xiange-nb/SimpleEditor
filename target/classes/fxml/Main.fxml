@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.Controller">
+    <children>
+        <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <MenuBar BorderPane.alignment="CENTER">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="文件">
+                            <items>
+                                <MenuItem fx:id="menu1" mnemonicParsing="false" onAction="#ImportData" text="导入" />
+                                <MenuItem mnemonicParsing="false" text="新建" />
+                                <MenuItem mnemonicParsing="false" text="保存" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <Menu fx:id="latelymenu" mnemonicParsing="false" text="打开最近" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="帮助">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="没有帮助" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </top>
+            <left>
+                <Accordion BorderPane.alignment="CENTER">
+                    <panes>
+                        <TitledPane fx:id="titledpane1" animated="false" prefHeight="306.0" prefWidth="215.0" text="剧情文件">
+                            <content>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <Button fx:id="buttonA1" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#Button1Clicked" text="主配置文件" />
+                                        <Button layoutX="14.0" layoutY="44.0" mnemonicParsing="false" text="文件" />
+                                        <Button layoutX="14.0" layoutY="75.0" mnemonicParsing="false" text="文件" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="船、插槽">
+                            <content>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <Button fx:id="buttonB1" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#NewEditShip1" prefHeight="22.0" prefWidth="50.0" text="   船   " AnchorPane.topAnchor="10.0" />
+                                        <Button layoutX="14.0" layoutY="53.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="50.0" text="插槽" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="武器">
+                            <content>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" text="实弹" />
+                                        <Button layoutX="11.0" layoutY="45.0" mnemonicParsing="false" text="能量" />
+                                        <Button layoutX="11.0" layoutY="75.0" mnemonicParsing="false" text="导弹" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="物品">
+                            <content>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                            </content></TitledPane>
+                    </panes>
+                </Accordion>
+            </left>
+            <center>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <TableView fx:id="tableView" layoutX="79.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columns>
+                                <TableColumn id="key" fx:id="tableColumn1" prefWidth="140.0" text="key" />
+                                <TableColumn id="value" fx:id="tableColumn2" prefWidth="138.0" text="value" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </center>
+            <bottom>
+                <AnchorPane prefHeight="28.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label layoutX="14.0" layoutY="7.0" text="xxxxxxxxx" />
+                    </children>
+                </AnchorPane>
+            </bottom>
+        </BorderPane>
+    </children>
+</AnchorPane>
