@@ -2,7 +2,6 @@ package sample.javaFXUI;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 
 /**
  * @program: SimpleEditor
@@ -10,7 +9,7 @@ import javafx.scene.shape.Line;
  * @author: wwx
  * @create: 2021-04-07 13:35
  **/
-public class NodePane extends Pane {
+public class NodePaneTransparent extends Pane {
 
         private int code;
         private double RX;
@@ -19,18 +18,20 @@ public class NodePane extends Pane {
         private double AY;
         private int size=20;
 
-    public NodePane() {
+    public NodePaneTransparent() {
     }
 
-    public NodePane(double aX, double aY) {
+    public NodePaneTransparent(double aX, double aY) {
         AX=aX;AY=aY;
         this.setLayoutX(AX-(size/2));
         this.setLayoutY(AY-(size/2));
+        //this.setStyle("-fx-background-color: crimson");
+        //this.setMinSize(size,size);
         Circle circle = new Circle(10);
-        circle.setStyle("-fx-fill: rgb(51,184,223)");
+        circle.setStyle("-fx-fill: rgb(77,223,51)");
         circle.setCenterX(size/2);
         circle.setCenterY(size/2);
-        circle.setOpacity(0.8);
+        circle.setOpacity(0.5);
         this.getChildren().addAll(circle);
     }
 

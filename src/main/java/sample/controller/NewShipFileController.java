@@ -302,13 +302,15 @@ public class NewShipFileController {
         }
     }
 
-    public void MouseMoved(MouseEvent event){
-        mouseX=event.getX();
-        mouseY=event.getY();
+    public void MouseMoved(MouseEvent event) {
+        mouseX = event.getX();
+        mouseY = event.getY();
         double layoutX = coreImage.getLayoutX() + (coreImage.getFitWidth() / 2);
         double layoutY = coreImage.getLayoutY() + (coreImage.getFitHeight() / 2);
-        lable1.setText(RelativeCoordinates_plus(layoutY, event.getY()) + "==" +
-                RelativeCoordinates_plus(layoutX, event.getX()));
+        lable1.setText("X:"+RelativeCoordinates_plus(layoutX, event.getX()) + "== Y:" +
+                RelativeCoordinates_plus(layoutY, event.getY())
+                +"\n X:"+NumberUtil.round(event.getX(),1)+"== Y:"+NumberUtil.round(event.getY(),1)
+        );
     }
 
     private void draggable(NodePane node) {
